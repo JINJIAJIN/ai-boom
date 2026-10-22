@@ -1,0 +1,113 @@
+<!-- AI生成 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI引爆 — 搜集·思考·碰撞·引爆每一个AI新玩法</title>
+  <meta name="description" content="AI引爆 — 自动搜集、分析、对比全球AI工具与玩法">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 爆炸背景 -->
+  <div class="bg-explosion"></div>
+
+  <!-- 导航 -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <span class="logo-icon">💥</span>
+      <span class="logo-text">AI引爆</span>
+    </div>
+    <div class="nav-links">
+      <a href="#tools" class="nav-link">工具库</a>
+      <a href="#terms" class="nav-link">术语表</a>
+      <a href="#scenarios" class="nav-link">场景</a>
+      <a href="#compare" class="nav-link">对比</a>
+    </div>
+    <div class="nav-search">
+      <input type="text" id="searchInput" placeholder="搜索AI工具、术语、玩法..." autocomplete="off">
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">💥 AI引爆</h1>
+      <p class="hero-slogan">搜集 · 思考 · 碰撞 · 引爆每一个AI新玩法</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" id="toolCount">0</span><span class="stat-label">AI工具</span></div>
+        <div class="stat"><span class="stat-num" id="termCount">0</span><span class="stat-label">术语</span></div>
+        <div class="stat"><span class="stat-num" id="scenarioCount">0</span><span class="stat-label">场景</span></div>
+        <div class="stat"><span class="stat-num" id="catCount">0</span><span class="stat-label">分类</span></div>
+      </div>
+      <div class="hero-cta">
+        <a href="#tools" class="btn btn-primary">开始探索 →</a>
+        <a href="#compare" class="btn btn-secondary">工具对比</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 最新发现 -->
+  <section class="section latest-section">
+    <div class="section-header">
+      <h2 class="section-title">⚡ 最新发现</h2>
+      <span class="update-time" id="updateTime"></span>
+    </div>
+    <div class="latest-feed" id="latestFeed"></div>
+  </section>
+
+  <!-- 分类导航 -->
+  <section class="section" id="tools">
+    <div class="section-header">
+      <h2 class="section-title">📂 工具库</h2>
+    </div>
+    <div class="category-pills" id="categoryPills"></div>
+    <div class="tools-grid" id="toolsGrid"></div>
+  </section>
+
+  <!-- 术语表 -->
+  <section class="section" id="terms">
+    <div class="section-header">
+      <h2 class="section-title">📚 术语速查</h2>
+    </div>
+    <div class="terms-grid" id="termsGrid"></div>
+  </section>
+
+  <!-- 场景 -->
+  <section class="section" id="scenarios">
+    <div class="section-header">
+      <h2 class="section-title">💡 场景罗列</h2>
+    </div>
+    <div class="scenarios-grid" id="scenariosGrid"></div>
+  </section>
+
+  <!-- 对比 -->
+  <section class="section" id="compare">
+    <div class="section-header">
+      <h2 class="section-title">⚔️ 工具对比</h2>
+    </div>
+    <div class="compare-setup">
+      <select id="compareA" class="compare-select"><option value="">选择工具A</option></select>
+      <span class="compare-vs">VS</span>
+      <select id="compareB" class="compare-select"><option value="">选择工具B</option></select>
+      <button class="btn btn-primary" id="compareBtn">开始对比</button>
+    </div>
+    <div class="compare-result" id="compareResult"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>💥 AI引爆 — 自动搜集·思考·碰撞·引爆AI新玩法</p>
+    <p class="footer-sub">由 Agent 自动运营 · 数据持续更新 · <span id="footerUpdate"></span></p>
+  </footer>
+
+  <!-- 工具详情弹窗 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalContent"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
