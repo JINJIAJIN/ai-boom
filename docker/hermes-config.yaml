@@ -1,0 +1,34 @@
+# HERMES 配置文件
+# 连接Supabase + AI模型
+
+# AI模型配置（用DeepSeek，便宜+中文好）
+model:
+  provider: deepseek
+  api_key: "YOUR_DEEPSEEK_API_KEY"  # 需要填入
+  model: deepseek-chat
+
+# Supabase配置
+supabase:
+  url: "https://wvneqcxbahkctaqjjdwv.supabase.co"
+  anon_key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2bmVxY3hiYWhrY3RhcWpqZHd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NTE3MzYsImV4cCI6MjEwNjQyNzczNn0.X9nihTvWGIle1M4sdE9VLL4ji-b9gGKVSf7ZD-6-xMI"
+  tables:
+    tools: "ai_tools"
+    terms: "ai_terms"
+    scenarios: "ai_scenarios"
+
+# 搜索关键词
+search_keywords:
+  - "AI agent framework 2026 new"
+  - "new LLM release 2026 open source"
+  - "AI coding tool IDE 2026"
+  - "AI image video generation tool 2026"
+  - "AI副业实操 2026"
+  - "AI工具入门教程"
+  - "AI workflow automation beginner"
+
+# 运行配置
+runtime:
+  check_interval: 3600  # 每小时检查一次（秒）
+  max_results_per_query: 5
+  auto_write_to_supabase: true
+  report_webhook: ""  # 可选：填webhook URL通知果办Agent

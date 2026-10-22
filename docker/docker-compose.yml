@@ -1,0 +1,16 @@
+# HERMES Docker部署 — 一键脚本
+# 在服务器PowerShell中运行：docker build -t hermes-ai . && docker run -d --name hermes --restart always hermes-ai
+
+version: '3.8'
+services:
+  hermes:
+    build: .
+    container_name: hermes-ai
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./hermes-data:/app/hermes/data
+      - ./hermes-skills:/app/hermes/skills
+    ports:
+      - "8081:8080"
