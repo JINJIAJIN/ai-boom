@@ -1,0 +1,16 @@
+{
+  "supabase_url": "https://wvneqcxbahkctaqjjdwv.supabase.co",
+  "supabase_key": "eyJhbGciOiJIUzI1NiIs...REDACTED...",
+  "glm_key": "10f9b8364f...REDACTED...",
+  "glm_url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "glm_model": "glm-4-flash",
+  "feishu_webhook": "",
+  "serverchan_key": "SCT449050T...REDACTED...",
+  "search_times": [
+    "08:00",
+    "12:00",
+    "18:00"
+  ],
+  "report_dir": "C:/hermes-deploy/reports",
+  "knowledge_file": "C:/hermes-deploy/knowledge.json"
+}
