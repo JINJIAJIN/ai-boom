@@ -65,6 +65,28 @@ logging.basicConfig(
 )
 logger = logging.getLogger("HERMES-BOT")
 
+# ============ Token用量记录 ============
+def log_token(usage):
+    """记录GLM API的token消耗"""
+    log_file = "C:/hermes-deploy/token_log.json"
+    try:
+        logs = []
+        if os.path.exists(log_file):
+            with open(log_file, "r", encoding="utf-8") as f:
+                logs = json.load(f)
+        logs.append({
+            "timestamp": datetime.now(timezone(timedelta(hours=8))).isoformat(),
+            "prompt_tokens": usage.get("prompt_tokens", 0),
+            "completion_tokens": usage.get("completion_tokens", 0),
+            "total_tokens": usage.get("total_tokens", 0),
+            "model": CFG.get("glm_model", ""),
+        })
+        logs = logs[-500:]  # 保留最近500条
+        with open(log_file, "w", encoding="utf-8") as f:
+            json.dump(logs, f, ensure_ascii=False)
+    except:
+        pass
+
 # ============ Supabase ============
 def supabase_insert(table, data):
     url = f"{CFG['supabase_url']}/rest/v1/{table}"
@@ -140,6 +162,7 @@ def search_producthunt():
 def search_ai_news():
     results = []
     try:
+        # 英文源
         for query in ["AI use case", "AI workflow tips", "AI hack"]:
             resp = requests.get("https://hn.algolia.com/api/v1/search",
                 params={"query": query, "tags": "story", "hitsPerPage": 3}, timeout=15)
@@ -150,6 +173,17 @@ def search_ai_news():
                         results.append({"name": title[:100], "description": f"AI玩法: {title}",
                             "url": hit.get("url","") or "", "category": "新手/副业",
                             "source": "AI玩法", "stars": hit.get("points",0)})
+        # 中文源：用HN搜中文关键词
+        for query in ["AI工具", "AI副业", "人工智能应用", "AI赚钱", "大模型"]:
+            resp = requests.get("https://hn.algolia.com/api/v1/search",
+                params={"query": query, "tags": "story", "hitsPerPage": 3}, timeout=15)
+            if resp.status_code == 200:
+                for hit in resp.json().get("hits", [])[:1]:
+                    title = hit.get("title","")
+                    if title and title not in [r["name"] for r in results]:
+                        results.append({"name": title[:100], "description": f"国内AI资讯: {title}",
+                            "url": hit.get("url","") or "", "category": "新手/副业",
+                            "source": "国内资讯", "stars": hit.get("points",0)})
         logger.info(f"  AI玩法资讯: {len(results)}条")
     except:
         pass
@@ -203,7 +237,11 @@ def glm_chat(prompt, system_prompt=None):
         }, timeout=45)
         
         if resp.status_code == 200:
-            return resp.json()["choices"][0]["message"]["content"]
+            data = resp.json()
+            # 记录token用量
+            usage = data.get("usage", {})
+            log_token(usage)
+            return data["choices"][0]["message"]["content"]
         else:
             logger.warning(f"  GLM返回: {resp.status_code} {resp.text[:100]}")
             return None
